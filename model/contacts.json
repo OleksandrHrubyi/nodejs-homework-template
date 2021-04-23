@@ -1,207 +1,87 @@
 [
-	{
-		"id": 1,
-		"name": "mister nemo",
-		"email": "ghrubyi@ukr.net",
-		"phone": "(992) 914-3792"
-	},
-	{
-		"id": 4,
-		"name": "fof",
-		"email": "est@utquamvel.net",
-		"phone": "(692) 802-2949"
-	},
-	{
-		"id": 5,
-		"name": "Cyrus Jackson",
-		"email": "nibh@semsempererat.com",
-		"phone": "(501) 472-5218"
-	},
-	{
-		"id": 6,
-		"name": "Abbot Franks",
-		"email": "scelerisque@magnis.org",
-		"phone": "(186) 568-3720"
-	},
-	{
-		"id": 7,
-		"name": "Reuben Henry",
-		"email": "pharetra.ut@dictum.co.uk",
-		"phone": "(715) 598-5792"
-	},
-	{
-		"id": 8,
-		"name": "Simon Morton",
-		"email": "dui.Fusce.diam@Donec.com",
-		"phone": "(233) 738-2360"
-	},
-	{
-		"id": 9,
-		"name": "Thomas Lucas",
-		"email": "nec@Nulla.com",
-		"phone": "(704) 398-7993"
-	},
-	{
-		"id": 10,
-		"name": "Alec Howard",
-		"email": "Donec.elementum@scelerisquescelerisquedui.net",
-		"phone": "(748) 206-2688"
-	},
-	{
-		"id": "WCxTwZ83d",
-		"name": "Aleksandr",
-		"email": "ghrubyi@ukr.net",
-		"phone": "380675034024"
-	},
-	{
-		"id": "E3X53HWts",
-		"name": "Olia",
-		"email": "below@ukr.net",
-		"phone": "380832323121"
-	},
-	{
-		"id": "lVoL9MQoY",
-		"name": "Olia2",
-		"email": "below@ukr.net",
-		"phone": "380832323121"
-	},
-	{
-		"id": "ZVkV5Z-8f",
-		"name": "Katia",
-		"email": "below@ukr.net",
-		"phone": "380832323121"
-	},
-	{
-		"id": "4cQYbLWkC",
-		"name": {
-			"type": "string",
-			"$_root": {
-				"_types": {},
-				"version": "17.4.0",
-				"cache": {}
-			},
-			"$_temp": {
-				"ruleset": false,
-				"whens": {}
-			},
-			"_ids": {
-				"_byId": {},
-				"_byKey": {},
-				"_schemaChain": false
-			},
-			"_preferences": null,
-			"_valids": null,
-			"_invalids": null,
-			"_rules": [],
-			"_singleRules": {},
-			"_refs": {
-				"refs": []
-			},
-			"_flags": {
-				"presence": "required"
-			},
-			"_cache": null,
-			"$_terms": {
-				"alterations": null,
-				"examples": null,
-				"externals": null,
-				"metas": [],
-				"notes": [],
-				"shared": null,
-				"tags": [],
-				"whens": null,
-				"replacements": null
-			},
-			"$_super": {}
-		},
-		"email": {
-			"type": "string",
-			"$_root": {
-				"_types": {},
-				"version": "17.4.0",
-				"cache": {}
-			},
-			"$_temp": {
-				"ruleset": null,
-				"whens": {}
-			},
-			"_ids": {
-				"_byId": {},
-				"_byKey": {},
-				"_schemaChain": false
-			},
-			"_preferences": null,
-			"_valids": null,
-			"_invalids": null,
-			"_rules": [],
-			"_singleRules": {},
-			"_refs": {
-				"refs": []
-			},
-			"_flags": {},
-			"_cache": null,
-			"$_terms": {
-				"alterations": null,
-				"examples": null,
-				"externals": null,
-				"metas": [],
-				"notes": [],
-				"shared": null,
-				"tags": [],
-				"whens": null,
-				"replacements": null
-			},
-			"$_super": {}
-		},
-		"phone": {
-			"type": "number",
-			"$_root": {
-				"_types": {},
-				"version": "17.4.0",
-				"cache": {}
-			},
-			"$_temp": {
-				"ruleset": null,
-				"whens": {}
-			},
-			"_ids": {
-				"_byId": {},
-				"_byKey": {},
-				"_schemaChain": false
-			},
-			"_preferences": null,
-			"_valids": null,
-			"_invalids": null,
-			"_rules": [],
-			"_singleRules": {},
-			"_refs": {
-				"refs": []
-			},
-			"_flags": {},
-			"_cache": null,
-			"$_terms": {
-				"alterations": null,
-				"examples": null,
-				"externals": null,
-				"metas": [],
-				"notes": [],
-				"shared": null,
-				"tags": [],
-				"whens": null
-			},
-			"$_super": {}
-		}
-	},
-	{
-		"id": "2HkO7-vUa",
-		"name": "g833g",
-		"email": "below@ukr.net",
-		"phone": "212121212"
-	},
-	{
-		"id": "6Z-e3uxBG",
-		"name": "alex",
-		"email": "hfhfhfh@jkjk.net",
-		"phone": "3232323232"
-	}
+  {
+    "id": 1,
+    "name": "mister nemo",
+    "email": "ghrubyi@ukr.net",
+    "phone": "(992) 914-3792"
+  },
+  {
+    "id": 4,
+    "name": "fof",
+    "email": "est@utquamvel.net",
+    "phone": "(692) 802-2949"
+  },
+  {
+    "id": 5,
+    "name": "Cyrus Jackson",
+    "email": "nibh@semsempererat.com",
+    "phone": "(501) 472-5218"
+  },
+  {
+    "id": 6,
+    "name": "Abbot Franks",
+    "email": "scelerisque@magnis.org",
+    "phone": "(186) 568-3720"
+  },
+  {
+    "id": 7,
+    "name": "Reuben Henry",
+    "email": "pharetra.ut@dictum.co.uk",
+    "phone": "(715) 598-5792"
+  },
+  {
+    "id": 8,
+    "name": "Simon Morton",
+    "email": "dui.Fusce.diam@Donec.com",
+    "phone": "(233) 738-2360"
+  },
+  {
+    "id": 9,
+    "name": "Thomas Lucas",
+    "email": "nec@Nulla.com",
+    "phone": "(704) 398-7993"
+  },
+  {
+    "id": 10,
+    "name": "Alec Howard",
+    "email": "Donec.elementum@scelerisquescelerisquedui.net",
+    "phone": "(748) 206-2688"
+  },
+  {
+    "id": "WCxTwZ83d",
+    "name": "Aleksandr",
+    "email": "ghrubyi@ukr.net",
+    "phone": "380675034024"
+  },
+  {
+    "id": "E3X53HWts",
+    "name": "Olia",
+    "email": "below@ukr.net",
+    "phone": "380832323121"
+  },
+  {
+    "id": "lVoL9MQoY",
+    "name": "Olia2",
+    "email": "below@ukr.net",
+    "phone": "380832323121"
+  },
+  {
+    "id": "ZVkV5Z-8f",
+    "name": "Katia",
+    "email": "below@ukr.net",
+    "phone": "380832323121"
+  },
+
+  {
+    "id": "2HkO7-vUa",
+    "name": "g833g",
+    "email": "below@ukr.net",
+    "phone": "212121212"
+  },
+  {
+    "id": "6Z-e3uxBG",
+    "name": "alex",
+    "email": "hfhfhfh@jkjk.net",
+    "phone": "3232323232"
+  }
 ]
