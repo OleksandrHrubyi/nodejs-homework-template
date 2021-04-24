@@ -9,6 +9,7 @@ router.get("/", async (req, res, next) => {
     return res.json({
       status: "succes",
       code: 200,
+      message: "contact list in data",
       data: {
         contacts,
       },
@@ -24,7 +25,9 @@ router.get("/:contactId", async (req, res, next) => {
     if (user) {
       return res.json({
         status: "succes",
+        message: "request contact found",
         code: 200,
+
         data: {
           user,
         },
@@ -33,6 +36,7 @@ router.get("/:contactId", async (req, res, next) => {
       return res.json({
         status: "error",
         code: 404,
+        message: `no contact with id ${req.params.contactId} found`,
         data: " Not Found",
       });
     }
@@ -47,6 +51,7 @@ router.post("/", validCreateContact, async (req, res, next) => {
     return res.status(201).json({
       status: "succes",
       code: 201,
+      message: "contact created",
       data: {
         addContact,
       },
@@ -58,14 +63,21 @@ router.post("/", validCreateContact, async (req, res, next) => {
 
 router.delete("/:contactId", async (req, res, next) => {
   try {
-    const removeContact = await actions.removeContact(req.params.contactId);
-    return res.json({
-      status: "succes",
-      code: 200,
-      data: {
-        removeContact,
-      },
-    });
+    const result = await actions.removeContact(req.params.contactId);
+    if (result) {
+      return res.json({
+        status: "succes",
+        code: 200,
+        message: "contact has already been deleted",
+      });
+    } else {
+      return res.json({
+        status: "error",
+        code: 404,
+        message: `no contact with id ${req.params.contactId} found`,
+        data: " Not Found",
+      });
+    }
   } catch (err) {
     next(err);
   }
@@ -77,6 +89,7 @@ router.patch("/:contactId", validUpdateContacts, async (req, res, next) => {
       req.params.contactId,
       req.body
     );
+
     return res.json({
       status: "succes",
       code: 200,
