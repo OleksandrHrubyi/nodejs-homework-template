@@ -3,13 +3,14 @@ require("dotenv").config();
 
 const uriDb = process.env.URI_DB;
 
-const client = new MongoClient(uri, {
+const db = MongoClient.connect(uriDb, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  poolSize: 5,
 });
-client.connect((err) => {
-  const collection = client.db("test").collection("devices");
-  // perform actions on the collection object
+
+process.on("SIGINT", async () => {
+  const client = await db;
   client.close();
 });
 
