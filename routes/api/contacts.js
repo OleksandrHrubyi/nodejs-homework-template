@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const actions = require("../../model/index");
-const { validCreateContact, validUpdateContacts } = require("../validation");
+const {
+  validCreateContact,
+  validUpdateContacts,
+  validUpdateStatus,
+} = require("../validation");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -69,6 +73,7 @@ router.delete("/:contactId", async (req, res, next) => {
         status: "succes",
         code: 200,
         message: "contact has already been deleted",
+        data: { result },
       });
     } else {
       return res.json({
@@ -101,5 +106,36 @@ router.patch("/:contactId", validUpdateContacts, async (req, res, next) => {
     next(err);
   }
 });
+
+router.patch(
+  "/:contactId/favorite",
+  validUpdateStatus,
+  async (req, res, next) => {
+    try {
+      if (req.body.favorite) {
+        const updateStatusContact = await actions.updateStatusContact(
+          req.params.contactId,
+          req.body
+        );
+
+        return res.status(201).json({
+          status: "succes",
+          code: 201,
+          message: "status updated",
+          data: {
+            updateStatusContact,
+          },
+        });
+      } else {
+        return res.json({
+          status: 400,
+          message: "missing field favorite",
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 module.exports = router;
