@@ -13,7 +13,7 @@ const create = async (userOptions) => {
   return await user.save();
 };
 
-const updateToken = async (token) => {
+const updateToken = async (id, token) => {
   return await User.updateOne({ _id: id }, { token });
 };
 

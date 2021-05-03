@@ -1,6 +1,8 @@
 const Users = require("../model/users");
 const { HttpCode } = require("../helper/constants");
-
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 const registration = async (req, res, next) => {
   const { email, password, subscription } = req.body;
   const user = await Users.findByEmail();
@@ -27,9 +29,35 @@ const registration = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {};
+const login = async (req, res, next) => {
+  const { email, password } = req.body;
+  const user = await Users.findByEmail(email);
 
-const logout = async (req, res, next) => {};
+  const isValidPassword = await user?.validPassword(password);
+
+  if (!user || !isValidPassword) {
+    return res.status(HttpCode.UNAUTH).json({
+      status: "error",
+      code: HttpCode.UNAUTH,
+      message: "Invalid credential",
+    });
+  }
+
+  const payload = { id: user.id };
+  const token = jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: "2h" });
+  await Users.updateToken(user.id, token);
+  return res.status(HttpCode.OK).json({
+    status: "succes",
+    code: HttpCode.OK,
+    data: { token },
+  });
+};
+
+const logout = async (req, res, next) => {
+  const id = req.user.id;
+  await Users.updateToken(user.id, null);
+  return res.status(HttpCode.NO_CONTENT).json({});
+};
 
 module.exports = {
   registration,
