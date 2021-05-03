@@ -1,7 +1,6 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
-
 const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
@@ -20,13 +19,11 @@ app.use((_req, res) => {
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
-  res
-    .status(status)
-    .json({
-      status: status === 500 ? "fail" : "error",
-      cose: status,
-      message: err.message,
-    });
+  res.status(status).json({
+    status: status === 500 ? "fail" : "error",
+    cose: status,
+    message: err.message,
+  });
 });
 
 module.exports = app;
