@@ -2,7 +2,8 @@ const actions = require("../model/index");
 
 const getAll = async (req, res, next) => {
   try {
-    const contacts = await actions.listContacts();
+    const userId = req.user?.id;
+    const contacts = await actions.listContacts(userId, req.query);
     return res.json({
       status: "succes",
       code: 200,
@@ -18,7 +19,8 @@ const getAll = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   try {
-    const user = await actions.getContactById(req.params.contactId);
+    const userId = req.user?.id;
+    const user = await actions.getContactById(userId, req.params.contactId);
     if (user) {
       return res.json({
         status: "succes",
@@ -44,7 +46,8 @@ const getById = async (req, res, next) => {
 
 const createContact = async (req, res, next) => {
   try {
-    const addContact = await actions.addContact(req.body);
+    const userId = req.user?.id;
+    const addContact = await actions.addContact(userId, req.body);
     return res.status(201).json({
       status: "succes",
       code: 201,
@@ -60,7 +63,8 @@ const createContact = async (req, res, next) => {
 
 const rmContactById = async (req, res, next) => {
   try {
-    const result = await actions.removeContact(req.params.contactId);
+    const userId = req.user?.id;
+    const result = await actions.removeContact(userId, req.params.contactId);
     if (result) {
       return res.json({
         status: "succes",
@@ -83,7 +87,9 @@ const rmContactById = async (req, res, next) => {
 
 const updateContactsById = async (req, res, next) => {
   try {
+    const userId = req.user?.id;
     const updatedUser = await actions.updateContact(
+      userId,
       req.params.contactId,
       req.body
     );
@@ -102,8 +108,10 @@ const updateContactsById = async (req, res, next) => {
 
 const updateStatusFav = async (req, res, next) => {
   try {
+    const userId = req.user?.id;
     if (req.body.favorite) {
       const updateStatusContact = await actions.updateStatusContact(
+        userId,
         req.params.contactId,
         req.body
       );

@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { Schema, model } = require("mongoose");
 const Subscription = require("../../helper/constants");
 const bcrypt = require("bcryptjs");
