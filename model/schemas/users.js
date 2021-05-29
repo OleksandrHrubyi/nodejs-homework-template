@@ -2,6 +2,7 @@ const { Schema, model } = require("mongoose");
 const Subscription = require("../../helper/constants");
 const bcrypt = require("bcryptjs");
 const SALT_FACTOR = 6;
+const gravatar = require('gravatar')
 
 const userSchema = new Schema({
   password: {
@@ -26,6 +27,14 @@ const userSchema = new Schema({
     type: String,
     default: null,
   },
+
+  avatar: {
+    type: String,
+    default: function () {
+      return gravatar.url(this.email, { s: '400' }, true)
+    }
+  }
+
 });
 
 userSchema.pre("save", async function (next) {

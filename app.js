@@ -12,9 +12,10 @@ const app = express();
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 app.use(helmet());
 app.use(logger(formatsLogger));
+app.use(express.static('public'))
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 2,
+  max: 40,
   handler: (req, res, next) => {
     return res.status(429).json({
       status: "error",
@@ -39,7 +40,7 @@ app.use((err, req, res, next) => {
   const status = err.status || 500;
   res.status(status).json({
     status: status === 500 ? "fail" : "error",
-    cose: status,
+    code: status,
     message: err.message,
   });
 });
