@@ -47,8 +47,6 @@ const userSchema = new Schema({
     required: true,
     default: nanoid(),
   },
-
-
 });
 
 userSchema.pre("save", async function (next) {
