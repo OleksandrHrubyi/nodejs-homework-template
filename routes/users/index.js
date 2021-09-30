@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { registration, login, logout, updateAvatar, refresh, getFavorites, verify, repeatEmailVerify } = require("../../controllers/users");
+const { registration, login, logout, updateAvatar, refresh, getFavorites } = require("../../controllers/users");
 const guard = require("../../helper/guard");
 const uploadAvatar = require('../../helper/upload-avatar')
 
@@ -15,7 +15,7 @@ router.patch(
     uploadAvatar.single('avatar'),
     updateAvatar)
 
-router.get('/verify/:token', verify)
-router.post('/verify', repeatEmailVerify)
+// router.get('/verify/:token', verify)
+// router.post('/verify', repeatEmailVerify)
 
 module.exports = router;

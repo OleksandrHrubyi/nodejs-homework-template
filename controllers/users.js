@@ -19,13 +19,13 @@ const registration = async (req, res, next) => {
   }
   try {
     const newUser = await Users.create(req.body);
-    try {
-      const emailService = new EmailService(process.env.NODE_ENV)
-      await emailService.sendVerifyEmail(newUser.verifyTokenEmail, newUser.email, newUser.name)
-    }
-    catch (e) {
-      console.log(e.message);
-    }
+    // try {
+    //   const emailService = new EmailService(process.env.NODE_ENV)
+    //   await emailService.sendVerifyEmail(newUser.verifyTokenEmail, newUser.email, newUser.name)
+    // }
+    // catch (e) {
+    //   console.log(e.message);
+    // }
     return res.status(HttpCode.CREATED).json({
       status: "succes",
       code: HttpCode.CREATED,
@@ -50,7 +50,7 @@ const login = async (req, res, next) => {
 
   const isValidPassword = await user?.validPassword(password);
 
-  if (!user || !isValidPassword || !user.verify) {
+  if (!user || !isValidPassword) {
     return res.status(HttpCode.UNAUTH).json({
       status: "error",
       code: HttpCode.UNAUTH,
