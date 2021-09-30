@@ -4,13 +4,12 @@ const fs = require('fs/promises');
 const path = require('path')
 const Users = require("../model/users");
 const { HttpCode } = require("../helper/constants");
-const { writeAsync } = require("jimp");
+const EmailService = require('../services/email')
 require("dotenv").config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const registration = async (req, res, next) => {
-  const { email, password, subscription, name } = req.body;
-  const user = await Users.findByEmail();
+  const user = await Users.findByEmail(req.body.email);
   if (user) {
     return res.status(HttpCode.CONFLICT).json({
       status: "error",
@@ -20,6 +19,13 @@ const registration = async (req, res, next) => {
   }
   try {
     const newUser = await Users.create(req.body);
+    try {
+      const emailService = new EmailService(process.env.NODE_ENV)
+      await emailService.sendVerifyEmail(newUser.verifyTokenEmail, newUser.email, newUser.name)
+    }
+    catch (e) {
+      console.log(e.message);
+    }
     return res.status(HttpCode.CREATED).json({
       status: "succes",
       code: HttpCode.CREATED,
@@ -44,7 +50,7 @@ const login = async (req, res, next) => {
 
   const isValidPassword = await user?.validPassword(password);
 
-  if (!user || !isValidPassword) {
+  if (!user || !isValidPassword || !user.verify) {
     return res.status(HttpCode.UNAUTH).json({
       status: "error",
       code: HttpCode.UNAUTH,
@@ -122,11 +128,60 @@ const saveAvatarUser = async (req) => {
 }
 
 
+const verify = async (req, res, next) => {
+  try {
+    const user = await Users.findByVerifyTokenEmail(req.params.token)
+    if (user) {
+      await Users.updateVerifyToken(user.id, true, null)
+      return res.status(HttpCode.OK).json({
+        status: 'success',
+        code: HttpCode.OK,
+        data: { message: 'Verification successful' },
+      })
+    }
+    return res.status(HttpCode.BAD_REQUEST).json({
+      status: 'error',
+      code: HttpCode.BAD_REQUEST,
+      message: 'Invalid token. Contact to administration',
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const repeatEmailVerify = async (req, res, next) => {
+  try {
+    const user = await Users.findByEmail(req.body.email)
+    if (user) {
+      const { name, verifyTokenEmail, email } = user
+      const emailService = new EmailService(process.env.NODE_ENV)
+      await emailService.sendVerifyEmail(verifyTokenEmail, email, name)
+      return res.status(HttpCode.OK).json({
+        status: 'success',
+        code: HttpCode.OK,
+        data: { message: 'Verification email resubmitted' },
+      })
+    }
+    return res.status(HttpCode.NOT_FOUND).json({
+      status: 'error',
+      code: HttpCode.NOT_FOUND,
+      message: 'User not found',
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+
+
 module.exports = {
   registration,
   login,
   logout,
   updateAvatar,
   refresh,
-  getFavorites
+  getFavorites,
+  repeatEmailVerify,
+  verify,
 };
