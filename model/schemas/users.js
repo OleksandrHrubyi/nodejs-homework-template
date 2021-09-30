@@ -5,6 +5,10 @@ const SALT_FACTOR = 6;
 const gravatar = require('gravatar')
 
 const userSchema = new Schema({
+  name: {
+    type: String,
+    required: [true, "Name is required"],
+  },
   password: {
     type: String,
     required: [true, "Password is required"],
@@ -26,6 +30,11 @@ const userSchema = new Schema({
   token: {
     type: String,
     default: null,
+  },
+
+  favorites: {
+    type: Array,
+    default: false,
   },
 
   avatar: {

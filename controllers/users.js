@@ -9,7 +9,7 @@ require("dotenv").config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const registration = async (req, res, next) => {
-  const { email, password, subscription } = req.body;
+  const { email, password, subscription, name } = req.body;
   const user = await Users.findByEmail();
   if (user) {
     return res.status(HttpCode.CONFLICT).json({
@@ -26,9 +26,12 @@ const registration = async (req, res, next) => {
       data: {
         id: newUser.id,
         email: newUser.email,
+        name: newUser.name,
         subscription: newUser.subscription,
         avatar: newUser.avatar
+
       },
+
     });
   } catch (err) {
     next(err);
@@ -56,14 +59,40 @@ const login = async (req, res, next) => {
     status: "succes",
     code: HttpCode.OK,
     data: { token },
+    name: user.name,
   });
 };
 
 const logout = async (req, res, next) => {
+  console.log(req.user)
   const id = req.user.id;
   await Users.updateToken(id, null);
   return res.status(HttpCode.NO_CONTENT).json({});
 };
+
+const refresh = async (req, res, next) => {
+  return res.status(HttpCode.OK).json({
+    code: HttpCode.OK,
+  });
+};
+
+const getFavorites = async (req, res, next) => {
+  console.log('requst');
+  if (req.id) {
+    await Users.addFavoriteFilm(req.id, req);
+    return res.status(201).json({
+      status: "succes",
+      code: 201,
+      message: "add to favorite",
+    });
+  } else {
+    return res.json({
+      status: 400,
+      message: "missing field favorite",
+    });
+  }
+}
+
 
 const updateAvatar = async (req, res, next) => {
   const { id } = req.user
@@ -91,9 +120,13 @@ const saveAvatarUser = async (req) => {
 
   return path.join(FOLDER_AVATARS, newNameAvatar)
 }
+
+
 module.exports = {
   registration,
   login,
   logout,
-  updateAvatar
+  updateAvatar,
+  refresh,
+  getFavorites
 };

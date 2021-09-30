@@ -21,10 +21,16 @@ const updateAvatar = async (id, avatar) => {
   return await User.updateOne({ _id: id }, { avatar });
 };
 
+
+const addFavoriteFilm = async (userId, body) => {
+  const result = await User.updateOne({ ...body, favorites: [...body.favorites, userId] });
+  return result;
+};
 module.exports = {
   findById,
   findByEmail,
   create,
   updateToken,
-  updateAvatar
+  updateAvatar,
+  addFavoriteFilm
 };
